@@ -1,0 +1,64 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="./uvalib-exhibits.html">
+
+<dom-module id="uvalib-exhibit-ui">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme">
+        :host {
+          display: block;
+        }
+      </style>
+    </custom-style>
+
+    <uvalib-exhibits main-exhibit="{{mainExhibit}}" category="{{category}}" limit="{{limit}}" image-url="{{imageUrl}}" exhibits="{{_exhibits}}"></uvalib-exhibits>
+
+    <div class="exhibits">
+        <template is="dom-repeat" items="[[_exhibits]]" as="exhibit">
+        </template>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-exhibit-ui`
+     * component to display exhibit content
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibExhibitUi extends UvaLibUiElement {
+      static get is() { return 'uvalib-exhibit-ui'; }
+      static get properties() {
+        return Object.assign(super.properties, {
+          mainExhibit: {
+            type: Boolean,
+            value: false
+          },
+          category: {
+            type: String,
+            value: 'current'
+          },
+          limit: {
+            type: Number,
+            value: 1
+          },
+          imageUrl: {
+            type: String,
+            value: 'relative'
+          },
+          _exhibits: {
+            type: Array,
+          }
+        });
+      }
+
+    }
+
+    window.customElements.define(UvalibExhibitUi.is, UvalibExhibitUi);
+  </script>
+</dom-module>
