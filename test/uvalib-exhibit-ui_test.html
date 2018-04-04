@@ -21,7 +21,7 @@
 
     <test-fixture id="ChangedPropertyTestFixture">
       <template>
-        <uvalib-exhibit-ui prop1="new-prop1"></uvalib-exhibit-ui>
+        <uvalib-exhibit-ui cagetegory="upcoming"></uvalib-exhibit-ui>
       </template>
     </test-fixture>
 
@@ -30,22 +30,17 @@
 
         test('instantiating the element with default properties works', () => {
           const element = fixture('BasicTestFixture');
-          assert.equal(element.prop1, 'uvalib-exhibit-ui');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello uvalib-exhibit-ui!');
+          assert.equal(element.constructor.is, 'uvalib-exhibit-ui');
         });
 
         test('setting a property on the element works', () => {
           // Create a test fixture
           const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.prop1, 'new-prop1');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+          assert.equal(element.category, 'upcoming');
         });
 
       });
+      // No user interface so not adding a11ySuite tests;
     </script>
 
   </body>

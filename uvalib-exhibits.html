@@ -1,4 +1,4 @@
-<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
@@ -18,7 +18,7 @@
      * @polymer
      * @demo demo/index.html
      */
-    class UvalibExhibits extends UvaLibUiElement {
+    class UvalibExhibits extends Polymer.Element {
       static get is() { return 'uvalib-exhibits'; }
       static get properties() {
         return {
@@ -34,32 +34,30 @@
             type: Number,
             value: 1
           },
-          imageUrl: {
-            type: String,
-            value: 'relative'
-          },
           exhibits: {
             type: Array,
-            reflectToAttribute: true
+
           },
           _exhibits: {
-            type: Array
+            type: Array,
+            observer: '_applyFilter'
           }
         };
       }
       static get observers() {
         return [
-          '_updateFilter(mainExhibit,category,limit)'
+          '_applyFilter(_exhibits)'
         ]
       }
 
-      _updateFilter(mainExhibit,category,limit) {
+      _applyFilter(exhibits) {
+//        console.log('mainExhibit: '+this.mainExhibit);
         // This feature assumes just one exhibit is to be returned in the array
-        if (mainExhibit) {
-          this.exhibits = _.filter(this._exhibits, {'mainExhibit': true});
+        if (this.mainExhibit) {
+          this.exhibits = _.filter(exhibits, ['mainExhibit', true]);
           // if no main exhibit found then get the latest current exhibit
           if (!this.exhibits.length) {
-            var ex = _.find(this._exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': 'current'})) ? true : false; });
+            var ex = _.find(exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': 'current'})) ? true : false; });
             // if no current exhibit then get the latest exhibit
             if (!ex) {
               ex = this._exhibits.pop();
@@ -68,18 +66,16 @@
           }
         } else {
           this.exhibits = [];
-          var exs = _.filter(this._exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': category})) ? true : false; });
-          for (var i=0; i < limit; i++) {
+//          console.log('category: '+this.category);
+          var category = this.category;
+          var exs = _.filter(exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': category})) ? true : false; });
+//          console.log('limit: '+this.limit);
+          var max = (exs.length < this.limit) ? exs.length : this.limit;
+          for (var i=0; i < max; i++) {
             this.exhibits.push(exs[i]);
           }
         }
-        this.exhibits.foreach(function(x) {
-          if (this.imageUrl == 'relative') {
-            x.image.url = super.whichImage(img.replace('https://wwwstatic.lib.virginia.edu','').replace('https://drupal.lib.virginia.edu/sites/default',''));
-          } else {
-            x.image.url = super.whichImage(img);
-          }
-        });
+        console.log(this.exhibits);
       }
     }
 

@@ -1,40 +1,27 @@
-<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
-<link rel="import" href="./uvalib-exhibits.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
 
-<dom-module id="uvalib-exhibit-ui">
+<dom-module id="uvalib-exhibits-ui">
   <template>
-    <custom-style>
-      <style include="uvalib-theme">
-        :host {
-          display: block;
-        }
-      </style>
-    </custom-style>
-
-    <uvalib-exhibits main-exhibit="{{mainExhibit}}" category="{{category}}" limit="{{limit}}" image-url="{{imageUrl}}" exhibits="{{_exhibits}}"></uvalib-exhibits>
-
-    <div class="exhibits">
-        <template is="dom-repeat" items="[[_exhibits]]" as="exhibit">
-        </template>
-    </div>
+    <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
   </template>
 
   <script>
     /**
-     * `uvalib-exhibit-ui`
-     * component to display exhibit content
+     * `uvalib-exhibits`
+     * component to select some exhibits based on a category
      *
      * @customElement
      * @polymer
      * @demo demo/index.html
      */
-    class UvalibExhibitUi extends UvaLibUiElement {
-      static get is() { return 'uvalib-exhibit-ui'; }
+    class UvalibExhibitsUi extends Polymer.Element {
+      static get is() { return 'uvalib-exhibits-ui'; }
       static get properties() {
-        return Object.assign(super.properties, {
+        return {
           mainExhibit: {
             type: Boolean,
             value: false
@@ -47,18 +34,51 @@
             type: Number,
             value: 1
           },
-          imageUrl: {
-            type: String,
-            value: 'relative'
+          exhibits: {
+            type: Array,
+
           },
           _exhibits: {
             type: Array,
+            observer: '_applyFilter'
           }
-        });
+        };
+      }
+      static get observers() {
+        return [
+          '_applyFilter(_exhibits)'
+        ]
       }
 
+      _applyFilter(exhibits) {
+//        console.log('mainExhibit: '+this.mainExhibit);
+        // This feature assumes just one exhibit is to be returned in the array
+        if (this.mainExhibit) {
+          this.exhibits = _.filter(exhibits, ['mainExhibit', true]);
+          // if no main exhibit found then get the latest current exhibit
+          if (!this.exhibits.length) {
+            var ex = _.find(exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': 'current'})) ? true : false; });
+            // if no current exhibit then get the latest exhibit
+            if (!ex) {
+              ex = this._exhibits.pop();
+            }
+            this.exhibits.push(ex);
+          }
+        } else {
+          this.exhibits = [];
+//          console.log('category: '+this.category);
+          var category = this.category;
+          var exs = _.filter(exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': category})) ? true : false; });
+//          console.log('limit: '+this.limit);
+          var max = (exs.length < this.limit) ? exs.length : this.limit;
+          for (var i=0; i < max; i++) {
+            this.exhibits.push(exs[i]);
+          }
+        }
+        console.log(this.exhibits);
+      }
     }
 
-    window.customElements.define(UvalibExhibitUi.is, UvalibExhibitUi);
+    window.customElements.define(UvalibExhibitsUi.is, UvalibExhibitsUi);
   </script>
 </dom-module>
