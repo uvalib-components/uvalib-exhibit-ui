@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`uvalib-exhibits`\ncomponent to select some exhibits based on a category",
+      "description": "`uvalib-exhibit-ui`\ncomponent to select some exhibits based on a category",
       "summary": "",
       "path": "uvalib-exhibit-ui.html",
       "properties": [
@@ -588,11 +588,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 24,
+              "line": 22,
               "column": 10
             },
             "end": {
-              "line": 27,
+              "line": 25,
               "column": 11
             }
           },
@@ -608,11 +608,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 28,
+              "line": 26,
               "column": 10
             },
             "end": {
-              "line": 31,
+              "line": 29,
               "column": 11
             }
           },
@@ -628,11 +628,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 32,
+              "line": 30,
               "column": 10
             },
             "end": {
-              "line": 35,
+              "line": 33,
               "column": 11
             }
           },
@@ -648,11 +648,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 36,
+              "line": 34,
               "column": 10
             },
             "end": {
-              "line": 39,
+              "line": 37,
               "column": 11
             }
           },
@@ -667,11 +667,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 40,
+              "line": 38,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 41,
               "column": 11
             }
           },
@@ -2855,11 +2855,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 52,
+              "line": 50,
               "column": 6
             },
             "end": {
-              "line": 78,
+              "line": 76,
               "column": 7
             }
           },
@@ -3815,11 +3815,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 20,
+          "line": 18,
           "column": 4
         },
         "end": {
-          "line": 79,
+          "line": 77,
           "column": 5
         }
       },
@@ -3832,11 +3832,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 24,
+              "line": 22,
               "column": 10
             },
             "end": {
-              "line": 27,
+              "line": 25,
               "column": 11
             }
           },
@@ -3848,11 +3848,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 28,
+              "line": 26,
               "column": 10
             },
             "end": {
-              "line": 31,
+              "line": 29,
               "column": 11
             }
           },
@@ -3864,11 +3864,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 32,
+              "line": 30,
               "column": 10
             },
             "end": {
-              "line": 35,
+              "line": 33,
               "column": 11
             }
           },
@@ -3880,11 +3880,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 36,
+              "line": 34,
               "column": 10
             },
             "end": {
-              "line": 39,
+              "line": 37,
               "column": 11
             }
           },
