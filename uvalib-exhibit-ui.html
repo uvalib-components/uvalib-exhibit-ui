@@ -57,7 +57,7 @@
           if (!this.exhibits.length) {
             var ex = _.find(exhibits, function(e) { return (_.find(e.exhibitStatus, {'value': 'current'})) ? true : false; });
             // if no current exhibit then get the latest exhibit
-            if (!ex) {
+            if (!ex && this._exhibits) {
               ex = this._exhibits.pop();
             }
             this.exhibits.push(ex);
